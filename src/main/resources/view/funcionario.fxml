@@ -6,6 +6,7 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.PasswordField?>
 
 <HBox spacing="20" style="-fx-padding: 20;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pe.edu.upeu.sysdenuncias.controller.FuncionarioController">
 
@@ -18,9 +19,9 @@
         
         <Label text="Cargo:" />
         <TextField fx:id="txtCargo" promptText="Ingrese cargo" />
-        
+
         <Label text="Credenciales (Contraseña):" />
-        <TextField fx:id="txtCredenciales" promptText="Ingrese contraseña" />
+        <PasswordField fx:id="txtCredenciales" promptText="Ingrese contraseña" />
         
         <HBox spacing="10" style="-fx-padding: 15 0 0 0;">
             <Button fx:id="btnGuardar" text="Guardar" onAction="#guardar" prefWidth="120" />

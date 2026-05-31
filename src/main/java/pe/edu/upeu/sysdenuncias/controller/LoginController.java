@@ -58,7 +58,7 @@ public class LoginController {
             
             Screen screen = Screen.getPrimary();
             Rectangle2D bounds = screen.getBounds();
-            Scene mainScene = new Scene(mainRoot, bounds.getWidth(), bounds.getHeight() - 40);
+            Scene mainScene = new Scene(mainRoot, 1100, 650);;
 
             String cssPath = getClass().getResource("/css/styles.css").toExternalForm();
             mainScene.getStylesheets().add(cssPath);
@@ -66,8 +66,6 @@ public class LoginController {
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             stage.setScene(mainScene);
             stage.setTitle("Sistema de Denuncias Ciudadanas");
-            stage.setX(bounds.getMinX());
-            stage.setY(bounds.getMinY());
             stage.setResizable(true);
 
             StageManager.setPrimaryStage(stage);

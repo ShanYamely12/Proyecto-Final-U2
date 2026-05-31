@@ -8,7 +8,7 @@ public enum EstadoDenuncia {
     PENDIENTE,
     EN_PROCESO,
     RESUELTO,
-    NOTIFICADO;
+    NOTIFICADO, EN_APELACION, RECHAZADO;
 
     /** Devuelve una representación amigable para mostrar en la UI */
     public String getLabel() {
@@ -17,6 +17,8 @@ public enum EstadoDenuncia {
             case EN_PROCESO  -> "En Proceso";
             case RESUELTO    -> "Resuelto";
             case NOTIFICADO  -> "Notificado";
+            case RECHAZADO    -> "Rechazado";
+            case EN_APELACION -> "En Apelación";
         };
     }
 }

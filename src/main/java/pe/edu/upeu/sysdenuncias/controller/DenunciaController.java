@@ -144,6 +144,7 @@ public class DenunciaController {
             Denuncia denuncia = Denuncia.builder()
                     .descripcion(txtDescripcion.getText())
                     .ubicacion(txtUbicacion.getText())
+                    .observacion(txtObservacion.getText())
                     .estado(cbxEstado.getValue() != null ? cbxEstado.getValue() : EstadoDenuncia.PENDIENTE)
                     .ciudadano(cbxCiudadano.getValue())
                     .tipoDenuncia(cbxTipoDenuncia.getValue())
@@ -171,7 +172,7 @@ public class DenunciaController {
         idDenunciaEdit = d.getId();
         txtDescripcion.setText(d.getDescripcion());
         txtUbicacion.setText(d.getUbicacion());
-        
+        txtObservacion.setText(d.getObservacion());
         // Find exact objects to select in combo
         cbxEstado.setValue(d.getEstado());
         cbxCiudadano.getItems().stream().filter(c -> c.getId().equals(d.getCiudadano().getId())).findFirst().ifPresent(cbxCiudadano::setValue);
@@ -190,10 +191,13 @@ public class DenunciaController {
     public void limpiar() {
         txtDescripcion.clear();
         txtUbicacion.clear();
+        txtObservacion.clear();
         cbxCiudadano.setValue(null);
         cbxTipoDenuncia.setValue(null);
         cbxEstado.setValue(EstadoDenuncia.PENDIENTE);
         idDenunciaEdit = 0L;
         btnGuardar.setText("Guardar");
     }
+    @FXML
+    private TextArea txtObservacion;
 }

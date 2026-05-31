@@ -1,36 +1,53 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Menu?>
-<?import javafx.scene.control.MenuBar?>
-<?import javafx.scene.control.MenuItem?>
-<?import javafx.scene.control.TabPane?>
-<?import javafx.scene.layout.BorderPane?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
 
-<BorderPane xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pe.edu.upeu.sysdenuncias.controller.MainGuiController" prefHeight="600.0" prefWidth="900.0">
+<BorderPane prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pe.edu.upeu.sysdenuncias.controller.MainGuiController">
     <top>
-        <MenuBar>
-            <menus>
-                <Menu text="Mantenimiento">
-                    <items>
-                        <MenuItem fx:id="miCiudadanos" text="Ciudadanos" onAction="#menuAction"/>
-                        <MenuItem fx:id="miFuncionarios" text="Funcionarios" onAction="#menuAction"/>
-                        <MenuItem fx:id="miTiposDenuncia" text="Tipos de Denuncia" onAction="#menuAction"/>
-                    </items>
-                </Menu>
-                <Menu text="Operaciones">
-                    <items>
-                        <MenuItem fx:id="miDenuncias" text="Gestión de Denuncias" onAction="#menuAction"/>
-                    </items>
-                </Menu>
-                <Menu text="Sistema">
-                    <items>
-                        <MenuItem fx:id="miSalir" text="Salir" onAction="#menuAction"/>
-                    </items>
-                </Menu>
-            </menus>
-        </MenuBar>
+        <VBox>
+            <MenuBar>
+                <menus>
+                    <Menu text="Mantenimiento">
+                        <items>
+                            <MenuItem fx:id="miCiudadanos" onAction="#menuAction" text="Ciudadanos" />
+                            <MenuItem fx:id="miFuncionarios" onAction="#menuAction" text="Funcionarios" />
+                            <MenuItem fx:id="miTiposDenuncia" onAction="#menuAction" text="Tipos de Denuncia" />
+                        </items>
+                    </Menu>
+
+                    <Menu text="Operaciones">
+                        <items>
+                            <MenuItem fx:id="miDenuncias" onAction="#menuAction" text="Gestión de Denuncias" />
+                        </items>
+                    </Menu>
+
+                    <Menu text="Sistema">
+                        <items>
+                            <MenuItem fx:id="miSalir" onAction="#menuAction" text="Salir" />
+                        </items>
+                    </Menu>
+                </menus>
+            </MenuBar>
+
+            <Label fx:id="lblUsuario" style="-fx-padding: 8; -fx-font-size: 14px; -fx-font-weight: bold;" text="Bienvenido" />
+        </VBox>
     </top>
     <center>
-        <TabPane fx:id="tabPaneFx" tabClosingPolicy="ALL_TABS" />
+        <VBox spacing="10">
+
+            <Label style="-fx-font-size:24px; -fx-font-weight:bold;" text="SISTEMA DE DENUNCIAS CIUDADANAS">
+            <VBox.margin>
+               <Insets left="5.0" />
+            </VBox.margin></Label>
+
+            <Label text="Bienvenido al sistema">
+            <VBox.margin>
+               <Insets bottom="5.0" left="5.0" />
+            </VBox.margin></Label>
+
+            <TabPane fx:id="tabPaneFx" VBox.vgrow="ALWAYS" />
+        </VBox>
     </center>
 </BorderPane>

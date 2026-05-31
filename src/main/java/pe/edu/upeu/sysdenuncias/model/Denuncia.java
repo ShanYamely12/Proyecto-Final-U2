@@ -21,7 +21,9 @@ import java.time.LocalDateTime;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+
 public class Denuncia {
+
 
     private Long id;
 
@@ -46,4 +48,7 @@ public class Denuncia {
 
     // El funcionario puede ser asignado después (no NotNull inicialmente)
     private Funcionario funcionario;
+
+    private String observacion;
+
 }

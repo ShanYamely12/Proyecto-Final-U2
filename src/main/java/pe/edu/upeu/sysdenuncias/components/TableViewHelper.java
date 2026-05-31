@@ -78,7 +78,9 @@ public class TableViewHelper<T> {
                         if (empty) {
                             setGraphic(null);
                         } else {
-                            HBox buttons = new HBox(btnUpdate, btnDelete);
+                            HBox buttons = new HBox(10, btnUpdate, btnDelete);
+                            btnUpdate.setPrefWidth(80);
+                            btnDelete.setPrefWidth(80);
                             buttons.setSpacing(5);
                             setGraphic(buttons);
                         }
@@ -88,7 +90,7 @@ public class TableViewHelper<T> {
         };
 
         actionColumn.setCellFactory(cellFactory);
-        actionColumn.setPrefWidth(120);
+        actionColumn.setMinWidth(180);
         tableView.getColumns().add(actionColumn);
     }
 
