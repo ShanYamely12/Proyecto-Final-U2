@@ -31,15 +31,21 @@ public class DenunciaServiceImp extends CrudGenericoServiceImp<Denuncia, Long> i
 
     @Override
     public Denuncia update(Long id, Denuncia entity) {
+        // Obtener el estado anterior antes de actualizar
+        EstadoDenuncia estadoAnterior = repo.findById(id)
+                .map(Denuncia::getEstado)
+                .orElse(null);
+
         Denuncia actualizada = super.update(id, entity);
         
-        // Regla de negocio: Si cambia a NOTIFICADO, notificar al ciudadano
-        if (actualizada.getEstado() == EstadoDenuncia.NOTIFICADO) {
-            notificacionService.notificarCiudadano(
-                actualizada.getCiudadano(), 
-                "Su denuncia registrada el " + actualizada.getFecha() + " ha sido procesada y su estado actual es NOTIFICADO. Funcionario asignado: " + 
-                (actualizada.getFuncionario() != null ? actualizada.getFuncionario().getNombre() : "Pendiente")
-            );
+        // Regla de negocio: Si el estado ha cambiado, notificar al ciudadano
+        if (estadoAnterior != null && estadoAnterior != actualizada.getEstado()) {
+            String mensaje = "Estimado/a " + actualizada.getCiudadano().getNombre() + ",\n" +
+                    "Le informamos que el estado de su denuncia (Código: " + actualizada.getId() + ") " +
+                    "ha cambiado de \"" + estadoAnterior.name() + "\" a \"" + actualizada.getEstado().name() + "\".\n" +
+                    "Funcionario a cargo: " + (actualizada.getFuncionario() != null ? actualizada.getFuncionario().getNombre() : "No asignado") + ".";
+            
+            notificacionService.notificarCiudadano(actualizada.getCiudadano(), mensaje);
         }
         
         return actualizada;

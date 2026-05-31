@@ -3,9 +3,12 @@ CREATE TABLE IF NOT EXISTS ciudadano (
     nombre VARCHAR(100) NOT NULL,
     dni VARCHAR(8) NOT NULL,
     telefono VARCHAR(15) NOT NULL,
+    correo VARCHAR(100),
     direccion VARCHAR(200) NOT NULL,
     genero VARCHAR(15)
 );
+
+ALTER TABLE ciudadano ADD COLUMN IF NOT EXISTS correo VARCHAR(100);
 
 CREATE TABLE IF NOT EXISTS funcionario (
     id BIGINT AUTO_INCREMENT PRIMARY KEY,

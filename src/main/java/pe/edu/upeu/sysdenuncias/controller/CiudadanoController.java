@@ -106,6 +106,7 @@ public class CiudadanoController {
         txtNombre.clear();
         txtDni.clear();
         txtTelefono.clear();
+        txtCorreo.clear();
         txtDireccion.clear();
         cbxGenero.setValue(null);
         idCiudadanoEdit = 0L;

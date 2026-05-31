@@ -12,6 +12,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 public class DenunciaRepository extends AbstractJdbcRepository<Denuncia, Long> {
 
@@ -37,6 +38,20 @@ public class DenunciaRepository extends AbstractJdbcRepository<Denuncia, Long> {
                 "JOIN tipo_denuncia t ON d.tipo_id = t.id " +
                 "LEFT JOIN funcionario f ON d.funcionario_id = f.id";
         return executeQuery(sql);
+    }
+
+    @Override
+    public Optional<Denuncia> findById(Long id) {
+        String sql = "SELECT d.id AS d_id, d.descripcion, d.fecha, d.ubicacion, d.estado, " +
+                "c.id AS c_id, c.nombre AS c_nombre, c.dni AS c_dni, c.telefono AS c_telefono, c.direccion AS c_direccion, c.genero AS c_genero, " +
+                "t.id AS t_id, t.nombre AS t_nombre, " +
+                "f.id AS f_id, f.nombre AS f_nombre, f.cargo AS f_cargo " +
+                "FROM denuncia d " +
+                "JOIN ciudadano c ON d.ciudadano_id = c.id " +
+                "JOIN tipo_denuncia t ON d.tipo_id = t.id " +
+                "LEFT JOIN funcionario f ON d.funcionario_id = f.id " +
+                "WHERE d.id = ?";
+        return executeQueryOne(sql, id);
     }
 
     @Override
