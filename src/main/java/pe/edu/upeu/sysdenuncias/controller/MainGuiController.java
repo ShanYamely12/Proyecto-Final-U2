@@ -25,6 +25,7 @@ public class MainGuiController {
         String id = menuItem.getId();
         
         switch (id) {
+            case "miDashboard" -> abrirTabConFXML("/view/dashboard.fxml", "Dashboard Interactivo");
             case "miCiudadanos" -> abrirTabConFXML("/view/ciudadano.fxml", "Gestión de Ciudadanos");
             case "miFuncionarios" -> abrirTabConFXML("/view/funcionario.fxml", "Gestión de Funcionarios");
             case "miTiposDenuncia" -> abrirTabConFXML("/view/tipodenuncia.fxml", "Tipos de Denuncia");

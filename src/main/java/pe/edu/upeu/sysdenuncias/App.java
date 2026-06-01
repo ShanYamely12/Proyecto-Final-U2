@@ -30,7 +30,6 @@ public class App {
             System.out.println("ℹ Nota sobre Admin: " + e.getMessage());
         }
 
-        // INICIAR JAVAFX
         SistemaDenunciasApplication.launch(
                 SistemaDenunciasApplication.class,
                 args
