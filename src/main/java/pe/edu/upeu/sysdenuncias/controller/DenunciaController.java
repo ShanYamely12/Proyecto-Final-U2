@@ -29,21 +29,28 @@ public class DenunciaController {
     private final ICiudadanoService ciudadanoService;
     private final ITipoDenunciaService tipoDenunciaService;
     private final IFuncionarioService funcionarioService;
-    
+
     private ObservableList<Denuncia> listarDenuncias;
 
-    @FXML private TextArea txtDescripcion;
-    @FXML private TextField txtUbicacion;
-    @FXML private ComboBox<Ciudadano> cbxCiudadano;
-    @FXML private ComboBox<TipoDenuncia> cbxTipoDenuncia;
-    @FXML private ComboBox<EstadoDenuncia> cbxEstado;
-    
-    @FXML private TableView<Denuncia> tableView;
-    @FXML private Button btnGuardar;
+    @FXML
+    private TextArea txtDescripcion;
+    @FXML
+    private TextField txtUbicacion;
+    @FXML
+    private ComboBox<Ciudadano> cbxCiudadano;
+    @FXML
+    private ComboBox<TipoDenuncia> cbxTipoDenuncia;
+    @FXML
+    private ComboBox<EstadoDenuncia> cbxEstado;
+
+    @FXML
+    private TableView<Denuncia> tableView;
+    @FXML
+    private Button btnGuardar;
 
     private Long idDenunciaEdit = 0L;
 
-    public DenunciaController(IDenunciaService denunciaService, ICiudadanoService ciudadanoService, 
+    public DenunciaController(IDenunciaService denunciaService, ICiudadanoService ciudadanoService,
                               ITipoDenunciaService tipoDenunciaService, IFuncionarioService funcionarioService) {
         this.denunciaService = denunciaService;
         this.ciudadanoService = ciudadanoService;
@@ -56,7 +63,7 @@ public class DenunciaController {
         cbxEstado.setItems(FXCollections.observableArrayList(EstadoDenuncia.values()));
         cbxCiudadano.setItems(FXCollections.observableArrayList(ciudadanoService.findAll()));
         cbxTipoDenuncia.setItems(FXCollections.observableArrayList(tipoDenunciaService.findAll()));
-        
+
         // Cargar nombres correctos en ComboBox
         cbxCiudadano.setCellFactory(new Callback<>() {
             @Override
@@ -100,35 +107,120 @@ public class DenunciaController {
         listar();
     }
 
+
+
+
     private void addReportColumn() {
-        TableColumn<Denuncia, Void> actionColumn = new TableColumn<>("PDF");
+        TableColumn<Denuncia, Void> actionColumn = new TableColumn<>("Notificar");
         Callback<TableColumn<Denuncia, Void>, TableCell<Denuncia, Void>> cellFactory = new Callback<>() {
             @Override
             public TableCell<Denuncia, Void> call(final TableColumn<Denuncia, Void> param) {
                 return new TableCell<>() {
-                    private final Button btnPdf = new Button("PDF");
+                    private final MenuButton btnNotificar = new MenuButton("...");
                     {
-                        btnPdf.setStyle("-fx-background-color: #2196F3; -fx-text-fill: white;");
-                        btnPdf.setOnAction(event -> {
+                        btnNotificar.setStyle("-fx-background-color: #2196F3; -fx-text-fill: white; -fx-font-weight: bold;");
+
+                        // 🖨️ Creamos las TRES opciones del menú desplegable ahora mismo
+                        MenuItem opcionWhatsapp = new MenuItem("Enviar por WhatsApp");
+                        MenuItem opcionCorreo = new MenuItem("Enviar por Correo");
+                        MenuItem opcionImpreso = new MenuItem("Entregar Impreso");
+
+                        btnNotificar.getItems().addAll(opcionWhatsapp, opcionCorreo, opcionImpreso);
+
+                        opcionWhatsapp.setOnAction(event -> {
                             Denuncia data = getTableView().getItems().get(getIndex());
-                            denunciaService.generarConstanciaPdf(data.getId());
+                            procesarNotificacion(data, "WhatsApp");
+                        });
+
+                        opcionCorreo.setOnAction(event -> {
+                            Denuncia data = getTableView().getItems().get(getIndex());
+                            procesarNotificacion(data, "Correo");
+                        });
+
+                        opcionImpreso.setOnAction(event -> {
+                            Denuncia data = getTableView().getItems().get(getIndex());
+                            procesarNotificacion(data, "Impreso");
                         });
                     }
+
+                    private void procesarNotificacion(Denuncia data, String medio) {
+                        denunciaService.generarConstanciaPdf(data.getId());
+
+                        String telefono = data.getCiudadano().getTelefono();
+                        String nombre = data.getCiudadano().getNombre();
+                        String tipoDenuncia = data.getTipoDenuncia() != null ? data.getTipoDenuncia().getNombre() : "Denuncia";
+
+
+                        if (medio.equals("WhatsApp")) {
+                            if (telefono != null && !telefono.isEmpty()) {
+                                enviarNotificacionWhatsApp(telefono, nombre, tipoDenuncia, data.getId());
+                            }
+                        } else if (medio.equals("Correo")) {
+                            String correo = data.getCiudadano().getCorreo();
+                            System.out.println("✉️ [Terminal] Enviando constancia formal en PDF al correo: " + correo);
+                        } else if (medio.equals("Impreso")) {
+
+                            System.out.println("🖨️ [Impresora] Mandando orden de impresión física para la denuncia N° " + data.getId());
+                        }
+
+                        // 2. Modificamos el estado a NOTIFICADO para cerrar el ciclo
+                        data.setEstado(EstadoDenuncia.NOTIFICADO);
+                        denunciaService.update(data.getId(), data);
+
+                        // 3. Limpieza total e instantánea de la interfaz
+                        listar();
+                        limpiar();
+                    }
+
                     @Override
                     public void updateItem(Void item, boolean empty) {
                         super.updateItem(item, empty);
                         if (empty) {
                             setGraphic(null);
                         } else {
-                            setGraphic(new HBox(btnPdf));
+                            setGraphic(new HBox(btnNotificar));
                         }
                     }
                 };
             }
         };
         actionColumn.setCellFactory(cellFactory);
-        actionColumn.setPrefWidth(60);
+        actionColumn.setPrefWidth(95);
         tableView.getColumns().add(actionColumn);
+    }
+
+    private void enviarNotificacionWhatsApp(String telefono, String nombre, String tipoDenuncia, Long idDenuncia) {
+        try {
+            String mensaje = "🏛️ *MUNICIPALIDAD - SISTEMA DE DENUNCIAS*\n\n"
+                    + "Estimado(a) *" + nombre + "*,\n"
+                    + "Se ha procesado formalmente su denuncia por '" + tipoDenuncia + "'.\n\n"
+                    + "📄 *Nro. de Trámite:* 000" + idDenuncia + "-2026\n"
+                    + "📎 _Su Constancia Oficial en formato PDF ha sido generada con éxito en el sistema._\n\n"
+                    + "_Por favor, conserve este mensaje como cargo oficial de presentación._";
+
+            String mensajeCodificado = java.net.URLEncoder.encode(mensaje, "UTF-8");
+            String numeroCompleto = telefono.startsWith("51") ? telefono : "51" + telefono;
+            String urlWhatsApp = "https://wa.me/" + numeroCompleto + "?text=" + mensajeCodificado;
+
+            if (java.awt.Desktop.isDesktopSupported()) {
+                java.awt.Desktop desktop = java.awt.Desktop.getDesktop();
+                desktop.browse(new java.net.URI(urlWhatsApp));
+
+                String carpetaUsuario = System.getProperty("user.home");
+                String rutaPdf = carpetaUsuario + "\\Documents\\constancia_" + idDenuncia + ".pdf";
+                java.io.File archivoPdf = new java.io.File(rutaPdf);
+
+                if (archivoPdf.exists()) {
+                    desktop.open(archivoPdf);
+                    System.out.println("🟩 [Sistema] PDF abierto automáticamente desde Documentos.");
+                } else {
+                    Runtime.getRuntime().exec("explorer.exe " + carpetaUsuario + "\\Documents");
+                    System.out.println("⚠️ Archivo específico no encontrado, abriendo la carpeta Documentos.");
+                }
+            }
+        } catch (Exception e) {
+            System.err.println("❌ Error al buscar el PDF de forma universal: " + e.getMessage());
+        }
     }
 
     private void listar() {

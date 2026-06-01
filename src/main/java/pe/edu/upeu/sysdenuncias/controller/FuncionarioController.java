@@ -4,11 +4,14 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import pe.edu.upeu.sysdenuncias.components.ColumnInfo;
 import pe.edu.upeu.sysdenuncias.components.TableViewHelper;
 import pe.edu.upeu.sysdenuncias.components.Toast;
+import pe.edu.upeu.sysdenuncias.dto.SessionManager;
+import pe.edu.upeu.sysdenuncias.enums.Cargo;
 import pe.edu.upeu.sysdenuncias.model.Funcionario;
 import pe.edu.upeu.sysdenuncias.service.IFuncionarioService;
 
@@ -20,9 +23,10 @@ public class FuncionarioController {
     private ObservableList<Funcionario> listarFuncionarios;
 
     @FXML private TextField txtNombre;
-    @FXML private TextField txtCargo;
+    @FXML
+    private ComboBox<Cargo> cbxCargo;
     @FXML private TextField txtCredenciales;
-    
+
     @FXML private TableView<Funcionario> tableView;
     @FXML private Button btnGuardar;
 
@@ -39,10 +43,20 @@ public class FuncionarioController {
         columns.put("ID", new ColumnInfo("id", 50.0));
         columns.put("Nombre", new ColumnInfo("nombre", 150.0));
         columns.put("Cargo", new ColumnInfo("cargo", 150.0));
-        columns.put("Credenciales", new ColumnInfo("credenciales", 100.0));
 
         tableViewHelper.addColumnsInOrderWithSize(tableView, columns, this::editFuncionario, this::deleteFuncionario);
         listar();
+        cbxCargo.setItems(
+                FXCollections.observableArrayList(Cargo.values())
+        );
+        Funcionario logueado =
+                SessionManager.getInstance()
+                        .getFuncionarioLogueado();
+
+        if(logueado.getCargo() != Cargo.ADMINISTRADOR){
+            btnGuardar.setDisable(true);
+        }
+
     }
 
     private void listar() {
@@ -53,9 +67,10 @@ public class FuncionarioController {
     @FXML
     public void guardar() {
         try {
+
             Funcionario funcionario = Funcionario.builder()
                     .nombre(txtNombre.getText())
-                    .cargo(txtCargo.getText())
+                    .cargo(cbxCargo.getValue())
                     .credenciales(txtCredenciales.getText())
                     .build();
 
@@ -77,8 +92,7 @@ public class FuncionarioController {
     private void editFuncionario(Funcionario f) {
         idFuncionarioEdit = f.getId();
         txtNombre.setText(f.getNombre());
-        txtCargo.setText(f.getCargo());
-        txtCredenciales.setText(f.getCredenciales());
+        cbxCargo.setValue(f.getCargo());        txtCredenciales.setText(f.getCredenciales());
         btnGuardar.setText("Actualizar");
     }
 
@@ -91,7 +105,7 @@ public class FuncionarioController {
     @FXML
     public void limpiar() {
         txtNombre.clear();
-        txtCargo.clear();
+        cbxCargo.setValue(null);
         txtCredenciales.clear();
         idFuncionarioEdit = 0L;
         btnGuardar.setText("Guardar");

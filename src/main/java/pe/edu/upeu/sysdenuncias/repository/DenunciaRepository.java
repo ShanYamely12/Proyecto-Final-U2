@@ -1,5 +1,6 @@
 package pe.edu.upeu.sysdenuncias.repository;
 
+import pe.edu.upeu.sysdenuncias.enums.Cargo;
 import pe.edu.upeu.sysdenuncias.enums.EstadoDenuncia;
 import pe.edu.upeu.sysdenuncias.enums.Genero;
 import pe.edu.upeu.sysdenuncias.model.Ciudadano;
@@ -93,7 +94,9 @@ public class DenunciaRepository extends AbstractJdbcRepository<Denuncia, Long> {
             funcionario = Funcionario.builder()
                     .id(fId)
                     .nombre(rs.getString("f_nombre"))
-                    .cargo(rs.getString("f_cargo"))
+                    .cargo(rs.getString("f_cargo") != null
+                            ? Cargo.valueOf(rs.getString("f_cargo"))
+                            : null)
                     .build();
         }
 

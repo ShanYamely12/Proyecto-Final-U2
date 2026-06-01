@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import pe.edu.upeu.sysdenuncias.enums.Cargo;
 
 /**
  * Entidad Funcionario — representa al empleado de la institución
@@ -29,7 +30,7 @@ public class Funcionario {
     private String nombre;
 
     @NotBlank(message = "El cargo es obligatorio")
-    private String cargo;
+    private Cargo cargo;
 
     @NotBlank(message = "Las credenciales (contraseña) son obligatorias")
     private String credenciales;

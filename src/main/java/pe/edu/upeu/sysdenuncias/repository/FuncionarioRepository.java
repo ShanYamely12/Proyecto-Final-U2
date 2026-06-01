@@ -1,5 +1,6 @@
 package pe.edu.upeu.sysdenuncias.repository;
 
+import pe.edu.upeu.sysdenuncias.enums.Cargo;
 import pe.edu.upeu.sysdenuncias.model.Funcionario;
 
 import java.sql.Connection;
@@ -28,7 +29,7 @@ public class FuncionarioRepository extends AbstractJdbcRepository<Funcionario, L
         long id = executeInsertGetKey(connection,
                 "INSERT INTO funcionario(nombre, cargo, credenciales) VALUES(?,?,?)",
                 entity.getNombre(),
-                entity.getCargo(),
+                entity.getCargo().name(),
                 entity.getCredenciales()
         );
         entity.setId(id);
@@ -40,7 +41,7 @@ public class FuncionarioRepository extends AbstractJdbcRepository<Funcionario, L
         executeUpdate(connection,
                 "UPDATE funcionario SET nombre=?, cargo=?, credenciales=? WHERE id=?",
                 entity.getNombre(),
-                entity.getCargo(),
+                entity.getCargo().name(),
                 entity.getCredenciales(),
                 entity.getId()
         );
@@ -52,8 +53,11 @@ public class FuncionarioRepository extends AbstractJdbcRepository<Funcionario, L
         return Funcionario.builder()
                 .id(rs.getLong("id"))
                 .nombre(rs.getString("nombre"))
-                .cargo(rs.getString("cargo"))
-                .credenciales(rs.getString("credenciales"))
+                .cargo(
+                        rs.getString("cargo") != null
+                                ? Cargo.valueOf(rs.getString("cargo"))
+                                : null
+                )                .credenciales(rs.getString("credenciales"))
                 .build();
     }
 }

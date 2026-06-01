@@ -8,6 +8,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.control.PasswordField?>
 
+<?import javafx.scene.control.ComboBox?>
 <HBox spacing="20" style="-fx-padding: 20;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pe.edu.upeu.sysdenuncias.controller.FuncionarioController">
 
     <!-- Formulario Izquierda -->
@@ -18,8 +19,9 @@
         <TextField fx:id="txtNombre" promptText="Ingrese nombre" />
         
         <Label text="Cargo:" />
-        <TextField fx:id="txtCargo" promptText="Ingrese cargo" />
-
+        <ComboBox fx:id="cbxCargo"
+                  prefWidth="260"
+                  promptText="Seleccione cargo" />
         <Label text="Credenciales (Contraseña):" />
         <PasswordField fx:id="txtCredenciales" promptText="Ingrese contraseña" />
         
