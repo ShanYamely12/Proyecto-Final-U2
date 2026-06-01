@@ -12,7 +12,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 import java.util.Map;
@@ -30,7 +30,6 @@ public class DenunciaRepository extends AbstractJdbcRepository<Denuncia, Long> {
         return "id";
     }
 
-    
     @Override
     public List<Denuncia> findAll() {
         String sql = "SELECT d.id AS d_id, d.descripcion, d.fecha, d.ubicacion, d.estado, " +
@@ -63,7 +62,7 @@ public class DenunciaRepository extends AbstractJdbcRepository<Denuncia, Long> {
         long id = executeInsertGetKey(connection,
                 "INSERT INTO denuncia(descripcion, fecha, ubicacion, estado, ciudadano_id, tipo_id, funcionario_id) VALUES(?,?,?,?,?,?,?)",
                 entity.getDescripcion(),
-                java.sql.Timestamp.valueOf(entity.getFecha()),
+                entity.getFecha() != null ? java.sql.Timestamp.valueOf(entity.getFecha().atStartOfDay()) : null, // 👈 ¡Arreglado para LocalDate!
                 entity.getUbicacion(),
                 entity.getEstado() != null ? entity.getEstado().name() : null,
                 entity.getCiudadano().getId(),
@@ -79,7 +78,7 @@ public class DenunciaRepository extends AbstractJdbcRepository<Denuncia, Long> {
         executeUpdate(connection,
                 "UPDATE denuncia SET descripcion=?, fecha=?, ubicacion=?, estado=?, ciudadano_id=?, tipo_id=?, funcionario_id=? WHERE id=?",
                 entity.getDescripcion(),
-                java.sql.Timestamp.valueOf(entity.getFecha()),
+                entity.getFecha() != null ? java.sql.Timestamp.valueOf(entity.getFecha().atStartOfDay()) : null, // 👈 ¡Arreglado para LocalDate!
                 entity.getUbicacion(),
                 entity.getEstado() != null ? entity.getEstado().name() : null,
                 entity.getCiudadano().getId(),
@@ -121,7 +120,7 @@ public class DenunciaRepository extends AbstractJdbcRepository<Denuncia, Long> {
         return Denuncia.builder()
                 .id(rs.getLong("d_id"))
                 .descripcion(rs.getString("descripcion"))
-                .fecha(rs.getTimestamp("fecha") != null ? rs.getTimestamp("fecha").toLocalDateTime() : null)
+                .fecha(rs.getTimestamp("fecha") != null ? rs.getTimestamp("fecha").toLocalDateTime().toLocalDate() : null) // 👈 ¡Arreglado para mapear a LocalDate!
                 .ubicacion(rs.getString("ubicacion"))
                 .estado(rs.getString("estado") != null ? EstadoDenuncia.valueOf(rs.getString("estado")) : null)
                 .ciudadano(ciudadano)
@@ -132,9 +131,9 @@ public class DenunciaRepository extends AbstractJdbcRepository<Denuncia, Long> {
 
     public Map<String, Integer> getCountByTipo() {
         String sql = "SELECT t.nombre AS tipo, COUNT(d.id) AS cantidad " +
-                     "FROM denuncia d " +
-                     "JOIN tipo_denuncia t ON d.tipo_id = t.id " +
-                     "GROUP BY t.nombre";
+                "FROM denuncia d " +
+                "JOIN tipo_denuncia t ON d.tipo_id = t.id " +
+                "GROUP BY t.nombre";
         Map<String, Integer> map = new HashMap<>();
         try (Connection conn = getConnection();
              PreparedStatement ps = conn.prepareStatement(sql);
@@ -150,8 +149,8 @@ public class DenunciaRepository extends AbstractJdbcRepository<Denuncia, Long> {
 
     public Map<String, Integer> getCountByEstado() {
         String sql = "SELECT estado, COUNT(id) AS cantidad " +
-                     "FROM denuncia " +
-                     "GROUP BY estado";
+                "FROM denuncia " +
+                "GROUP BY estado";
         Map<String, Integer> map = new HashMap<>();
         try (Connection conn = getConnection();
              PreparedStatement ps = conn.prepareStatement(sql);

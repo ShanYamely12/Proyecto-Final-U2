@@ -7,6 +7,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import pe.edu.upeu.sysdenuncias.enums.EstadoDenuncia;
+import java.time.LocalDate;
 
 import java.time.LocalDateTime;
 
@@ -24,8 +25,7 @@ public class Denuncia {
     @NotBlank(message = "La descripción de la denuncia es obligatoria")
     private String descripcion;
 
-    @NotNull(message = "La fecha es obligatoria")
-    private LocalDateTime fecha;
+    private LocalDate fecha;
 
     @NotBlank(message = "La ubicación es obligatoria")
     private String ubicacion;

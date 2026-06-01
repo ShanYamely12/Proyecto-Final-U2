@@ -20,6 +20,7 @@ import pe.edu.upeu.sysdenuncias.service.IDenunciaService;
 import pe.edu.upeu.sysdenuncias.service.IFuncionarioService;
 import pe.edu.upeu.sysdenuncias.service.ITipoDenunciaService;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.LinkedHashMap;
 
@@ -149,7 +150,7 @@ public class DenunciaController {
                     .ciudadano(cbxCiudadano.getValue())
                     .tipoDenuncia(cbxTipoDenuncia.getValue())
                     .funcionario(fLogueado) 
-                    .fecha(LocalDateTime.now())
+                    .fecha(LocalDate.from(LocalDateTime.now()))
                     .build();
 
             if (idDenunciaEdit != 0L) {

@@ -22,10 +22,9 @@ CREATE TABLE IF NOT EXISTS tipo_denuncia (
 CREATE TABLE IF NOT EXISTS denuncia (
     id BIGINT AUTO_INCREMENT PRIMARY KEY,
     descripcion TEXT NOT NULL,
-    fecha TIMESTAMP NOT NULL,
+    fecha TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     ubicacion VARCHAR(200) NOT NULL,
     estado VARCHAR(20) NOT NULL,
-    fecha_registro DATE DEFAULT CURRENT_DATE,
     ciudadano_id BIGINT NOT NULL,
     tipo_id BIGINT NOT NULL,
     funcionario_id BIGINT,
