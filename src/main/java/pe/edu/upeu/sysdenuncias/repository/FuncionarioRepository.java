@@ -55,9 +55,10 @@ public class FuncionarioRepository extends AbstractJdbcRepository<Funcionario, L
                 .nombre(rs.getString("nombre"))
                 .cargo(
                         rs.getString("cargo") != null
-                                ? Cargo.valueOf(rs.getString("cargo"))
+                                ? Cargo.valueOf(rs.getString("cargo").trim().toUpperCase())
                                 : null
-                )                .credenciales(rs.getString("credenciales"))
+                )
+                .credenciales(rs.getString("credenciales"))
                 .build();
     }
 }

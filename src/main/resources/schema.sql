@@ -35,7 +35,7 @@ CREATE TABLE IF NOT EXISTS denuncia (
 
 -- Datos semilla para Login
 MERGE INTO funcionario (id, nombre, cargo, credenciales)
-KEY(id) VALUES (1, 'admin', 'Administrador', 'admin');
+KEY(id) VALUES (1, 'admin', 'ADMINISTRADOR', 'admin');
 
 MERGE INTO tipo_denuncia (id, nombre)
 KEY(id) VALUES 
