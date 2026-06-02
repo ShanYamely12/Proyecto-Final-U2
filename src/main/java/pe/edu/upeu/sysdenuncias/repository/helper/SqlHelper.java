@@ -11,8 +11,7 @@ import java.util.Optional;
 public abstract class SqlHelper<T> {
 
     protected Connection getConnection() {
-        return DatabaseConnection.getInstance().getConnection();
-    }
+        return DatabaseConnection.getConnection();    }
 
     protected abstract T mapRow(ResultSet rs) throws SQLException;
 

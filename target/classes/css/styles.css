@@ -1,0 +1,310 @@
+/* General Styles */
+.root {
+    -fx-font-family: "Segoe UI", Helvetica, Arial, sans-serif;
+    -fx-font-size: 14px;
+    -fx-background-color: #f4f6f8;
+}
+
+/* Button Styles */
+.button {
+    -fx-background-color: #0f172a; /* Slate 900 */
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-background-radius: 5;
+    -fx-border-radius: 5;
+    -fx-padding: 8 15 8 15;
+    -fx-cursor: hand;
+}
+.button:hover {
+    -fx-background-color: #1e293b; /* Slate 800 */
+}
+.button:pressed {
+    -fx-background-color: #334155; /* Slate 700 */
+}
+
+/* Botón de Guardar (Azul Institucional) */
+#btnGuardar {
+    -fx-background-color: #0284c7; /* Sky 600 */
+}
+#btnGuardar:hover {
+    -fx-background-color: #0369a1; /* Sky 700 */
+}
+#btnGuardar:pressed {
+    -fx-background-color: #075985; /* Sky 800 */
+}
+
+/* Botón Secundario (Limpiar) */
+#btnLimpiar {
+    -fx-background-color: #64748b; /* Slate 500 */
+    -fx-text-fill: white;
+}
+#btnLimpiar:hover {
+    -fx-background-color: #475569; /* Slate 600 */
+}
+#btnLimpiar:pressed {
+    -fx-background-color: #334155; /* Slate 700 */
+}
+
+/* Botones de acción en tablas */
+.button-edit {
+    -fx-background-color: #475569; /* Slate 600 */
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-background-radius: 4;
+    -fx-padding: 5 10 5 10;
+    -fx-cursor: hand;
+}
+.button-edit:hover {
+    -fx-background-color: #334155; /* Slate 700 */
+}
+
+.button-delete {
+    -fx-background-color: #e11d48; /* Rose 600 */
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-background-radius: 4;
+    -fx-padding: 5 10 5 10;
+    -fx-cursor: hand;
+}
+.button-delete:hover {
+    -fx-background-color: #be123c; /* Rose 700 */
+}
+
+/* TableView Styles */
+.table-view {
+    -fx-background-color: white;
+    -fx-border-color: #e0e0e0;
+    -fx-border-radius: 5;
+}
+.table-column {
+    -fx-alignment: CENTER-LEFT;
+}
+.table-view .column-header {
+    -fx-background-color: #e0e0e0;
+    -fx-font-weight: bold;
+}
+.table-view .table-cell {
+    -fx-padding: 5 10 5 10;
+}
+
+/* Text Fields and ComboBox */
+.text-field, .password-field, .text-area, .combo-box {
+    -fx-background-color: white;
+    -fx-border-color: #ccc;
+    -fx-border-radius: 4;
+    -fx-background-radius: 4;
+    -fx-padding: 5 8 5 8;
+}
+.text-field:focused, .password-field:focused, .text-area:focused, .combo-box:focused {
+    -fx-border-color: #2196F3;
+    -fx-border-width: 2;
+}
+
+/* Labels */
+.label {
+    -fx-text-fill: #333;
+}
+.title-label {
+    -fx-font-size: 24px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #1976D2;
+}
+/* Fondo general con degradado como tu imagen */
+.login-root {
+    -fx-background-color: linear-gradient(to bottom right, #50a3a2, #214e61);
+}
+
+/* Tarjeta central semitransparente (Efecto Cristal / Glassmorphism) */
+.login-card {
+    -fx-background-color: rgba(255, 255, 255, 0.12);
+    -fx-background-radius: 10px;
+    -fx-border-color: rgba(255, 255, 255, 0.25);
+    -fx-border-width: 1px;
+    -fx-border-radius: 10px;
+    -fx-padding: 30px;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.25), 15, 0, 0, 8);
+}
+
+/* Título estilizado */
+.login-title {
+    -fx-font-family: "Segoe UI", Arial, sans-serif;
+    -fx-font-size: 22px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #ffffff;
+}
+
+/* Cajas de texto modernas (Línea blanca abajo en vez de recuadro) */
+.text-field-modern {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent transparent rgba(255, 255, 255, 0.6) transparent;
+    -fx-border-width: 1.5px;
+    -fx-text-fill: #ffffff;
+    -fx-prompt-text-fill: rgba(255, 255, 255, 0.4);
+    -fx-font-size: 13px;
+    -fx-padding: 5 0 5 0;
+}
+
+.text-field-modern:focused {
+    -fx-border-color: transparent transparent #ffffff transparent;
+    -fx-border-width: 2px;
+}
+
+/* Botón de Ingresar Azul Oscuro / Elegante */
+.button-login {
+    -fx-background-color: #002d40;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-font-size: 13px;
+    -fx-background-radius: 4px;
+    -fx-padding: 10px;
+    -fx-cursor: hand;
+}
+
+.button-login:hover {
+    -fx-background-color: #00415a;
+}
+
+/* Botón Salir Sutil */
+.button-exit {
+    -fx-background-color: transparent;
+    -fx-text-fill: rgba(255, 255, 255, 0.6);
+    -fx-font-size: 12px;
+    -fx-cursor: hand;
+    -fx-border-color: rgba(255, 255, 255, 0.3);
+    -fx-border-radius: 4px;
+    -fx-background-radius: 4px;
+}
+
+.button-exit:hover {
+    -fx-background-color: rgba(255, 255, 255, 0.1);
+    -fx-text-fill: white;
+}
+
+/* ==========================================================================
+   Estilos de la Barra Lateral (Sidebar)
+   ========================================================================== */
+.sidebar {
+    -fx-background-color: #1e293b; /* Slate 800 */
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.2), 10, 0, 0, 0);
+}
+
+.sidebar-profile {
+    -fx-background-color: #0f172a; /* Slate 900 */
+    -fx-border-color: transparent transparent #334155 transparent;
+    -fx-border-width: 0 0 1 0;
+    -fx-padding: 25 15 25 15;
+}
+
+.sidebar-username {
+    -fx-text-fill: #ffffff;
+    -fx-font-weight: bold;
+    -fx-font-size: 16px;
+    -fx-font-family: "Segoe UI", Arial, sans-serif;
+}
+
+.sidebar-role {
+    -fx-text-fill: #38bdf8; /* Sky 400 */
+    -fx-font-size: 11px;
+    -fx-font-weight: bold;
+    -fx-font-family: "Segoe UI", Arial, sans-serif;
+    -fx-background-color: rgba(56, 189, 248, 0.1);
+    -fx-padding: 3 8 3 8;
+    -fx-background-radius: 10px;
+}
+
+/* Botones principales de la barra lateral */
+.sidebar-btn {
+    -fx-background-color: transparent;
+    -fx-text-fill: #cbd5e1; /* Slate 300 */
+    -fx-alignment: center-left;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-padding: 12 15 12 15;
+    -fx-background-radius: 6px;
+    -fx-cursor: hand;
+    -fx-transition: all 0.3s;
+}
+
+.sidebar-btn:hover {
+    -fx-background-color: #334155; /* Slate 700 */
+    -fx-text-fill: #ffffff;
+}
+
+/* Estilo para TitledPane (Desplegables) en la Barra Lateral */
+.sidebar-titled-pane {
+    -fx-background-color: transparent;
+    -fx-text-fill: #cbd5e1;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+}
+
+.sidebar-titled-pane > .title {
+    -fx-background-color: transparent;
+    -fx-text-fill: #cbd5e1;
+    -fx-padding: 12 15 12 15;
+    -fx-cursor: hand;
+    -fx-border-color: transparent;
+}
+
+.sidebar-titled-pane > .title:hover {
+    -fx-background-color: #334155;
+    -fx-text-fill: #ffffff;
+}
+
+.sidebar-titled-pane > .title > .arrow-button .arrow {
+    -fx-background-color: #cbd5e1;
+}
+
+.sidebar-titled-pane > .content {
+    -fx-background-color: #0f172a; /* Slate 900 (para submenús) */
+    -fx-border-color: transparent;
+    -fx-padding: 5 0 5 0;
+}
+
+/* Botones de submenús */
+.sidebar-sub-btn {
+    -fx-background-color: transparent;
+    -fx-text-fill: #94a3b8; /* Slate 400 */
+    -fx-font-size: 13px;
+    -fx-padding: 8 15 8 30;
+    -fx-alignment: center-left;
+    -fx-background-radius: 4px;
+    -fx-cursor: hand;
+}
+
+.sidebar-sub-btn:hover {
+    -fx-background-color: #1e293b;
+    -fx-text-fill: #38bdf8;
+}
+
+/* Botón de salir / cerrar sesión */
+.sidebar-btn-exit {
+    -fx-background-color: transparent;
+    -fx-text-fill: #f87171; /* Red 400 */
+    -fx-alignment: center-left;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-padding: 12 15 12 15;
+    -fx-background-radius: 6px;
+    -fx-cursor: hand;
+}
+
+.sidebar-btn-exit:hover {
+    -fx-background-color: #7f1d1d; /* Red 900 */
+    -fx-text-fill: #ffffff;
+}
+
+/* Contenido Principal */
+.main-title-label {
+    -fx-font-family: "Segoe UI", Arial, sans-serif;
+    -fx-font-size: 20px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #1e293b;
+}
+
+.main-tab-pane {
+    -fx-background-color: white;
+    -fx-background-radius: 8px;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.05), 10, 0, 0, 0);
+    -fx-padding: 5;
+}

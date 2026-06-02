@@ -14,13 +14,9 @@ public class SistemaDenunciasApplication extends Application {
 
     @Override
     public void init() throws Exception {
-        
-        DatabaseConnection.getInstance();
-        
-        
+        pe.edu.upeu.sysdenuncias.config.DatabaseConnection.getConnection();
         AppContext context = AppContext.getInstance();
-        
-        
+
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/login.fxml"));
         loader.setControllerFactory(context::getBean);
         root = loader.load();

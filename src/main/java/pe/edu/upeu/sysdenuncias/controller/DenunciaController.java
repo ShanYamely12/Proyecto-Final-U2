@@ -58,7 +58,6 @@ public class DenunciaController {
         cbxCiudadano.setItems(FXCollections.observableArrayList(ciudadanoService.findAll()));
         cbxTipoDenuncia.setItems(FXCollections.observableArrayList(tipoDenunciaService.findAll()));
         
-        // Cargar nombres correctos en ComboBox
         cbxCiudadano.setCellFactory(new Callback<>() {
             @Override
             public ListCell<Ciudadano> call(ListView<Ciudadano> param) {
@@ -155,7 +154,6 @@ public class DenunciaController {
 
             if (idDenunciaEdit != 0L) {
                 denuncia.setId(idDenunciaEdit);
-                // Aquí el Service interceptará si el estado es NOTIFICADO e imprimirá en consola
                 denunciaService.update(idDenunciaEdit, denuncia);
                 Toast.showToast(null, "Actualizado correctamente", 2000, 500, 300);
             } else {
@@ -174,7 +172,6 @@ public class DenunciaController {
         txtDescripcion.setText(d.getDescripcion());
         txtUbicacion.setText(d.getUbicacion());
         txtObservacion.setText(d.getObservacion());
-        // Find exact objects to select in combo
         cbxEstado.setValue(d.getEstado());
         cbxCiudadano.getItems().stream().filter(c -> c.getId().equals(d.getCiudadano().getId())).findFirst().ifPresent(cbxCiudadano::setValue);
         cbxTipoDenuncia.getItems().stream().filter(t -> t.getId().equals(d.getTipoDenuncia().getId())).findFirst().ifPresent(cbxTipoDenuncia::setValue);

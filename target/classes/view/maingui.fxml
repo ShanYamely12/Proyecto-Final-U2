@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.Circle?>
+
+<BorderPane prefHeight="650.0" prefWidth="1100.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pe.edu.upeu.sysdenuncias.controller.MainGuiController">
+    <left>
+        <VBox prefWidth="260.0" styleClass="sidebar" spacing="0">
+            <!-- Profile Section -->
+            <VBox alignment="CENTER" spacing="10" styleClass="sidebar-profile">
+                <StackPane>
+                    <Circle radius="35.0" fill="#2c3e50" stroke="WHITE" strokeWidth="1.5" />
+                    <Label text="👤" style="-fx-font-size: 32px; -fx-text-fill: white;"/>
+                </StackPane>
+                <Label fx:id="lblSidebarUsuario" text="admin" styleClass="sidebar-username" />
+                <Label fx:id="lblSidebarCargo" text="ADMINISTRADOR" styleClass="sidebar-role" />
+            </VBox>
+            
+            <!-- Navigation ScrollPane -->
+            <ScrollPane fitToWidth="true" style="-fx-background: transparent; -fx-background-color: transparent; -fx-padding: 0;" VBox.vgrow="ALWAYS" hbarPolicy="NEVER" vbarPolicy="AS_NEEDED">
+                <VBox spacing="8" style="-fx-padding: 15 10 15 10; -fx-background-color: transparent;">
+                    
+                    <!-- Dashboard / Inicio -->
+                    <Button fx:id="btnSidebarInicio" text="🏠  Inicio" onAction="#sidebarAction" maxWidth="Infinity" alignment="BASELINE_LEFT" styleClass="sidebar-btn" />
+                    
+                    <!-- Mantenimiento Menu Dropdown -->
+                    <TitledPane fx:id="paneMantenimiento" text="📁  Mantenimiento" animated="true" expanded="false" styleClass="sidebar-titled-pane">
+                        <VBox spacing="6" style="-fx-background-color: transparent; -fx-padding: 5 0 5 15;">
+                            <Button fx:id="btnSidebarCiudadanos" text="👥  Ciudadanos" onAction="#sidebarAction" maxWidth="Infinity" alignment="BASELINE_LEFT" styleClass="sidebar-sub-btn" />
+                            <Button fx:id="btnSidebarFuncionarios" text="👮  Funcionarios" onAction="#sidebarAction" maxWidth="Infinity" alignment="BASELINE_LEFT" styleClass="sidebar-sub-btn" />
+                            <Button fx:id="btnSidebarTiposDenuncia" text="🏷️  Tipos de Denuncia" onAction="#sidebarAction" maxWidth="Infinity" alignment="BASELINE_LEFT" styleClass="sidebar-sub-btn" />
+                        </VBox>
+                    </TitledPane>
+                    
+                    <!-- Operaciones Menu Dropdown -->
+                    <TitledPane fx:id="paneOperaciones" text="⚙️  Operaciones" animated="true" expanded="false" styleClass="sidebar-titled-pane">
+                        <VBox spacing="6" style="-fx-background-color: transparent; -fx-padding: 5 0 5 15;">
+                            <Button fx:id="btnSidebarDenuncias" text="📝  Gestión de Denuncias" onAction="#sidebarAction" maxWidth="Infinity" alignment="BASELINE_LEFT" styleClass="sidebar-sub-btn" />
+                        </VBox>
+                    </TitledPane>
+                    
+                    <!-- Space Filler -->
+                    <Region VBox.vgrow="ALWAYS" prefHeight="50.0" />
+                    
+                    <!-- Logout -->
+                    <Button fx:id="btnSidebarSalir" text="🚪  Cerrar Sesión" onAction="#sidebarAction" maxWidth="Infinity" alignment="BASELINE_LEFT" styleClass="sidebar-btn-exit" />
+                </VBox>
+            </ScrollPane>
+        </VBox>
+    </left>
+    <center>
+        <VBox spacing="15" fillWidth="true" style="-fx-background-color: #f8fafc; -fx-padding: 20;">
+            <HBox alignment="CENTER_LEFT" spacing="10">
+                <Label text="SISTEMA DE DENUNCIAS CIUDADANAS" styleClass="main-title-label" HBox.hgrow="ALWAYS" />
+            </HBox>
+            
+            <TabPane fx:id="tabPaneFx" VBox.vgrow="ALWAYS" styleClass="main-tab-pane" />
+        </VBox>
+    </center>
+</BorderPane>

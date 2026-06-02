@@ -1,17 +1,12 @@
 package pe.edu.upeu.sysdenuncias.service.impl;
 
 import net.sf.jasperreports.engine.*;
-import net.sf.jasperreports.view.JasperViewer;
-import pe.edu.upeu.sysdenuncias.config.DatabaseConnection;
 import pe.edu.upeu.sysdenuncias.enums.EstadoDenuncia;
 import pe.edu.upeu.sysdenuncias.model.Denuncia;
 import pe.edu.upeu.sysdenuncias.repository.DenunciaRepository;
 import pe.edu.upeu.sysdenuncias.repository.ICrudGenericoRepository;
 import pe.edu.upeu.sysdenuncias.service.IDenunciaService;
 import pe.edu.upeu.sysdenuncias.service.INotificacionService;
-
-import java.io.InputStream;
-import java.util.HashMap;
 import java.util.Map;
 
 public class DenunciaServiceImp extends CrudGenericoServiceImp<Denuncia, Long> implements IDenunciaService {
@@ -52,29 +47,22 @@ public class DenunciaServiceImp extends CrudGenericoServiceImp<Denuncia, Long> i
     @Override
     public void generarConstanciaPdf(Long idDenuncia) {
         try {
-            InputStream reportStream = getClass().getResourceAsStream("/reports/constancia_denuncia.jrxml");
-            if (reportStream == null) {
-                System.out.println("No se encontró el archivo JRXML.");
-                return;
-            }
+            String path = "src/main/resources/reports/constancia_denuncia.jrxml";
+            java.sql.Connection con = pe.edu.upeu.sysdenuncias.config.DatabaseConnection.getConnection();
+            java.util.Map<String, Object> params = new java.util.HashMap<>();
+            params.put("ID_DENUNCIA", idDenuncia);
 
-            JasperReport jasperReport = JasperCompileManager.compileReport(reportStream);
+            net.sf.jasperreports.engine.JasperReport jr = net.sf.jasperreports.engine.JasperCompileManager.compileReport(path);
+            net.sf.jasperreports.engine.JasperPrint jp = net.sf.jasperreports.engine.JasperFillManager.fillReport(jr, params, con);
 
-            Map<String, Object> parameters = new HashMap<>();
-            parameters.put("ID_DENUNCIA", idDenuncia);
+            String ruta = "Constancia_Denuncia_" + idDenuncia + ".pdf";
+            net.sf.jasperreports.engine.JasperExportManager.exportReportToPdfFile(jp, ruta);
+            System.out.println("Archivo guardado en: " + ruta);
 
-            JasperPrint jasperPrint = JasperFillManager.fillReport(
-                    jasperReport, 
-                    parameters, 
-                    DatabaseConnection.getInstance().getConnection()
-            );
+            net.sf.jasperreports.view.JasperViewer.viewReport(jp, false);
 
-            
-            JasperViewer.viewReport(jasperPrint, false);
-
-        } catch (JRException e) {
+        } catch (Exception e) {
             e.printStackTrace();
-            System.out.println("Error al generar el reporte: " + e.getMessage());
         }
     }
 

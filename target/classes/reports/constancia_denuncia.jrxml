@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.20.6.final using JasperReports Library version 6.20.6-5c96b6aa8a39ac1dc6b6bea4b81168e16dd39231  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="constancia_denuncia" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="7a3c3e80-d12c-4735-86ef-a0b4c730fc6f">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="H2 Denuncias"/>
+	<parameter name="ID_DENUNCIA" class="java.lang.Long"/>
+	<queryString language="SQL">
+		<![CDATA[SELECT d.id, d.descripcion, d.fecha, d.ubicacion, d.estado,
+       c.nombre AS ciudadano_nombre, c.dni AS ciudadano_dni,
+       t.nombre AS tipo_denuncia,
+       f.nombre AS funcionario_nombre
+FROM denuncia d
+JOIN ciudadano c ON d.ciudadano_id = c.id
+JOIN tipo_denuncia t ON d.tipo_id = t.id
+LEFT JOIN funcionario f ON d.funcionario_id = f.id
+WHERE d.id = $P{ID_DENUNCIA}]]>
+	</queryString>
+	<field name="ID" class="java.lang.Long"/>
+	<field name="DESCRIPCION" class="java.lang.String"/>
+	<field name="FECHA" class="java.sql.Timestamp"/>
+	<field name="UBICACION" class="java.lang.String"/>
+	<field name="ESTADO" class="java.lang.String"/>
+	<field name="CIUDADANO_NOMBRE" class="java.lang.String"/>
+	<field name="CIUDADANO_DNI" class="java.lang.String"/>
+	<field name="TIPO_DENUNCIA" class="java.lang.String"/>
+	<field name="FUNCIONARIO_NOMBRE" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="20" width="555" height="30" uuid="098fdb53-8334-4531-9a7c-3f4124c693cb"/>
+				<textElement textAlignment="Center">
+					<font size="20" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Constancia de Denuncia Ciudadana]]></text>
+			</staticText>
+		</band>
+	</title>
+	<detail>
+		<band height="250" splitType="Stretch">
+			<staticText>
+				<reportElement x="30" y="10" width="100" height="20" uuid="a1b2c3d4-e5f6-7890-1234-567890abcdef"/>
+				<textElement><font isBold="true"/></textElement>
+				<text><![CDATA[Nro de Denuncia:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="140" y="10" width="100" height="20" uuid="b2c3d4e5-f6a7-8901-2345-67890abcdef1"/>
+				<textFieldExpression><![CDATA[$F{ID}]]></textFieldExpression>
+			</textField>
+
+			<staticText>
+				<reportElement x="30" y="40" width="100" height="20" uuid="c3d4e5f6-a7b8-9012-3456-7890abcdef12"/>
+				<textElement><font isBold="true"/></textElement>
+				<text><![CDATA[Fecha y Hora:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="140" y="40" width="200" height="20" uuid="d4e5f6a7-b8c9-0123-4567-890abcdef123"/>
+				<textFieldExpression><![CDATA[$F{FECHA}]]></textFieldExpression>
+			</textField>
+
+			<staticText>
+				<reportElement x="30" y="70" width="100" height="20" uuid="e5f6a7b8-c9d0-1234-5678-90abcdef1234"/>
+				<textElement><font isBold="true"/></textElement>
+				<text><![CDATA[Estado:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="140" y="70" width="100" height="20" uuid="f6a7b8c9-d0e1-2345-6789-0abcdef12345"/>
+				<textFieldExpression><![CDATA[$F{ESTADO}]]></textFieldExpression>
+			</textField>
+
+			<staticText>
+				<reportElement x="30" y="100" width="100" height="20" uuid="07b8c9d0-e1f2-3456-7890-abcdef123456"/>
+				<textElement><font isBold="true"/></textElement>
+				<text><![CDATA[Tipo de Incidencia:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="140" y="100" width="200" height="20" uuid="18c9d0e1-f2a3-4567-890a-bcdef1234567"/>
+				<textFieldExpression><![CDATA[$F{TIPO_DENUNCIA}]]></textFieldExpression>
+			</textField>
+
+			<staticText>
+				<reportElement x="30" y="130" width="100" height="20" uuid="29d0e1f2-a3b4-5678-90ab-cdef12345678"/>
+				<textElement><font isBold="true"/></textElement>
+				<text><![CDATA[Ciudadano:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="140" y="130" width="300" height="20" uuid="3ae1f2a3-b4c5-6789-0abc-def123456789"/>
+				<textFieldExpression><![CDATA[$F{CIUDADANO_NOMBRE} + " (DNI: " + $F{CIUDADANO_DNI} + ")"]]></textFieldExpression>
+			</textField>
+
+			<staticText>
+				<reportElement x="30" y="160" width="100" height="20" uuid="4bf2a3b4-c5d6-7890-abcd-ef1234567890"/>
+				<textElement><font isBold="true"/></textElement>
+				<text><![CDATA[Ubicación:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="140" y="160" width="400" height="20" uuid="5c03b4c5-d6e7-8901-bcde-f12345678901"/>
+				<textFieldExpression><![CDATA[$F{UBICACION}]]></textFieldExpression>
+			</textField>
+
+			<staticText>
+				<reportElement x="30" y="190" width="100" height="20" uuid="6d14c5d6-e7f8-9012-cdef-123456789012"/>
+				<textElement><font isBold="true"/></textElement>
+				<text><![CDATA[Descripción:]]></text>
+			</staticText>
+			<textField textAdjust="StretchHeight">
+				<reportElement x="140" y="190" width="400" height="50" uuid="7e25d6e7-f8a9-0123-def0-234567890123"/>
+				<textFieldExpression><![CDATA[$F{DESCRIPCION}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="50" splitType="Stretch">
+			<textField>
+				<reportElement x="180" y="10" width="200" height="30" uuid="8f36e7f8-a9b0-1234-ef01-345678901234"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA["Atendido por: " + ($F{FUNCIONARIO_NOMBRE} != null ? $F{FUNCIONARIO_NOMBRE} : "Pendiente")]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+</jasperReport>

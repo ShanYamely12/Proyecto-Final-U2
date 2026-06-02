@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox spacing="20" style="-fx-padding: 20; -fx-background-color: #f8fafc;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pe.edu.upeu.sysdenuncias.controller.DashboardController">
+
+    <!-- Title -->
+    <Label text="📊 Resumen del Estado de Denuncias" style="-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: #1e293b;" />
+
+    <!-- Metric Cards -->
+    <HBox spacing="20">
+        <!-- Card 1: Denuncias Nuevas -->
+        <VBox prefWidth="220" spacing="8" style="-fx-background-color: white; -fx-border-color: #e2e8f0; -fx-border-width: 1; -fx-border-radius: 8; -fx-background-radius: 8; -fx-padding: 15;">
+            <Label text="📥 Denuncias Nuevas" style="-fx-font-size: 13px; -fx-text-fill: #64748b; -fx-font-weight: bold;" />
+            <Label fx:id="lblNuevas" text="12" style="-fx-font-size: 36px; -fx-font-weight: bold; -fx-text-fill: #0284c7;" />
+        </VBox>
+
+        <!-- Card 2: En Proceso -->
+        <VBox prefWidth="220" spacing="8" style="-fx-background-color: white; -fx-border-color: #e2e8f0; -fx-border-width: 1; -fx-border-radius: 8; -fx-background-radius: 8; -fx-padding: 15;">
+            <Label text="⏳ En Proceso" style="-fx-font-size: 13px; -fx-text-fill: #64748b; -fx-font-weight: bold;" />
+            <Label fx:id="lblProceso" text="5" style="-fx-font-size: 36px; -fx-font-weight: bold; -fx-text-fill: #d97706;" />
+        </VBox>
+    </HBox>
+
+    <!-- Recent Complaints Table -->
+    <VBox spacing="10" VBox.vgrow="ALWAYS" style="-fx-background-color: white; -fx-border-color: #e2e8f0; -fx-border-width: 1; -fx-border-radius: 8; -fx-background-radius: 8; -fx-padding: 15;">
+        <Label text="📋 Últimas Denuncias Registradas" style="-fx-font-size: 15px; -fx-font-weight: bold; -fx-text-fill: #1e293b;" />
+        <TableView fx:id="tblRecientes" VBox.vgrow="ALWAYS" style="-fx-background-color: transparent;">
+            <columns>
+                <TableColumn fx:id="colCodigo" text="Código" prefWidth="80" />
+                <TableColumn fx:id="colCiudadano" text="Ciudadano" prefWidth="200" />
+                <TableColumn fx:id="colMotivo" text="Motivo" prefWidth="200" />
+                <TableColumn fx:id="colFecha" text="Fecha Registro" prefWidth="160" />
+                <TableColumn fx:id="colEstado" text="Estado" prefWidth="120" />
+            </columns>
+        </TableView>
+    </VBox>
+
+    <!-- Footer -->
+    <HBox alignment="CENTER_RIGHT">
+        <Label text="📍 Municipalidad Provincial" style="-fx-font-size: 11px; -fx-text-fill: #94a3b8; -fx-font-weight: bold;" />
+    </HBox>
+
+</VBox>

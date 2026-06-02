@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<HBox spacing="20" style="-fx-padding: 20;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pe.edu.upeu.sysdenuncias.controller.TipoDenunciaController">
+
+    
+    <VBox spacing="10" prefWidth="300" style="-fx-background-color: white; -fx-padding: 20; -fx-border-color: #ddd; -fx-border-radius: 5;">
+        <Label text="Catálogo de Tipos" styleClass="title-label" />
+        
+        <Label text="Nombre del Tipo de Denuncia:" />
+        <TextField fx:id="txtNombre" promptText="Ej: Robo, Accidente..." />
+        
+        <HBox spacing="10" style="-fx-padding: 15 0 0 0;">
+            <Button fx:id="btnGuardar" text="Guardar" onAction="#guardar" prefWidth="120" />
+            <Button id="btnLimpiar" text="Limpiar" onAction="#limpiar" prefWidth="120" />
+        </HBox>
+    </VBox>
+
+    
+    <VBox spacing="10" HBox.hgrow="ALWAYS">
+        <Label text="Lista de Tipos Disponibles" style="-fx-font-size: 16px; -fx-font-weight: bold;" />
+        <TableView fx:id="tableView" VBox.vgrow="ALWAYS" />
+    </VBox>
+
+</HBox>
